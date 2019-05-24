@@ -11,7 +11,7 @@ class TestRoom < Minitest::Test
     @blue_room = Room.new("blue_room", 10)
     @song1 = Song.new("Frank Sinatra","My Way")
     @song2 = Song.new("Rick Astley", "Never Gonna Give You Up")
-    @guest1 = Guest.new("Heidi", 40, @song1)
+    @guest1 = Guest.new("Heidi", 20, @song1)
     @guest2 = Guest.new("Boris", 100, @song1)
     @guest3 = Guest.new("Jeremy", 0, @song2)
     @guest4 = Guest.new("Nigel", 5, @song2)
@@ -72,6 +72,13 @@ class TestRoom < Minitest::Test
   def test_guest_wont_be_able_to_pay_tab
     @blue_room.check_in_guest(@guest4)
     assert_equal([], @blue_room.guests)
+  end
+
+  def test_cant_afford_that_third_session
+    @blue_room.check_in_guest(@guest1)
+    @blue_room.check_in_guest(@guest1)
+    @blue_room.check_in_guest(@guest1)
+    assert_equal(20, @guest1.guest_tab.tab)
   end
 
 end

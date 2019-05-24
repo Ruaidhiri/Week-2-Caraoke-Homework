@@ -15,6 +15,7 @@ attr_accessor(:guests, :playlist)
     if @guests.length < @capacity
       if @entry_fee + guest.guest_tab.tab <= guest.wallet
         @guests << guest
+        guest.guest_tab.tab += @entry_fee
       end
     end
   end
